@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="BoardDAOTemp">  <!-- 다른 기능의 설정(예_멤버관리)시 namespace 를 다른 이름으로 지정하여 사용 -->
+
+	<insert id="insertBoard">
+	<![CDATA[
+		insert into springboard(seq, title, writer, content) values((select nvl(max(seq), 0)+1 from springboard),#{title},#{writer},#{content})
+	]]>
+	</insert>
+
+	<update id="updateBoard">
+	<![CDATA[	
+		update springboard set title=#{title}, content=#{content} where seq=#{seq}
+	]]>
+	</update>
+	  
+	<delete id="deleteBoard">
+	<![CDATA[	
+		delete springboard where seq=#{seq}
+	]]>
+	</delete>
+	
+	<select id="getBoard" resultType="board">
+	<![CDATA[	
+		select * from springboard where seq=#{seq}
+	]]>
+	</select>
+	
+	<select id="getBoardList_T" resultType="board">
+	<![CDATA[	
+		select * from springboard where title like '%'||#{searchKeyword}||'%' order by seq desc
+	]]>
+	</select>
+	
+	<select id="getBoardList_C" resultType="board">
+	<![CDATA[	
+		select * from springboard where title content '%'||#{searchKeyword}||'%' order by seq desc
+	]]>
+	</select>
+
+</mapper>
+
+<!-- 
+1. BoardDAO.java 내의 sql 명령 -> 분리 설정
+2. BoardDAOTemp.insertBoard 처럼 사용
+3. ?,?,? 처리 -> #{title},#{writer},#{content}
+4. select문에만 resultType속성 지정 ="board"
+5. sql문에서 비교연산자(<, >...)를 태그로 인식함 
+	-> 문자열로 처리요청
+ -->

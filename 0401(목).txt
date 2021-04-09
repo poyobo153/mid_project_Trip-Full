@@ -1,0 +1,21 @@
+1. 다국어설정 : servlet-context.xml
+	 1) ResourceBundleMessageSource 객체
+			- property name="basenames라는 이름으로 setter메서드 호출 -> message.messageSourcer값 저장
+	 2) SessionLocaleResolver객체 : Locale정보 관리
+	 3) LocaleChangeInterceptor 객체 : Locale 전환 관리 (영문 <-> 한글 )
+	 4) login.jsp
+	      - 태그라이브러리 설정
+	 	   <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %> 
+	 	   
+	 	  - key값 입력 ( messageSoruce_ko.txt )
+	 	   <title><spring:message code="message.user.login.title"/></title>
+	 	      -> spring:message code="key값" ->  message.user.login.title
+	 	      
+2. 마이바티스 (MyBatis ) 
+	- 한두 줄의 자바 코드 -> DB 연동을 처리.	
+	- jdbc -> springJDBC ->  MyBatis
+	- 특징 : SQL 명령어를 자바 코드에서 분리하여 XML 파일에 따로 관리.   
+	          . sql문이 변경되어도 자바코드를 변경할 필요가 없어짐. 
+			  . 작업환경 변환에 대한 대응 용이
+			  . 스프링과 연동기능 제공
+	- 
